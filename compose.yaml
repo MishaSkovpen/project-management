@@ -2,8 +2,13 @@ services:
   postgres:
     image: 'postgres:latest'
     environment:
-      - 'POSTGRES_DB=mydatabase'
-      - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=myuser'
+      POSTGRES_USER: ${PMA_DB_USERNAME:-user}
+      POSTGRES_PASSWORD: ${PMA_DB_PASSWORD:-secret}
+      POSTGRES_DB: ${PMA_DB_NAME:-pma}
     ports:
-      - '5432'
+      - ${PMA_DB_PORT:-5432}:5432
+    volumes:
+      - ${PMA_DB_VOLUME:-postgres-db-volume}:/var/lib/postgresql/data
+
+volumes:
+  postgres-db-volume:
