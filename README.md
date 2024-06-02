@@ -11,7 +11,7 @@ https://chatgpt.com/share/e50525bd-3ecf-4bd5-968c-6c0842f9eec1
 # Проєкт
 1. [План виконання курсової роботи](#plan)
 2. [User Stories](UserStories.md)
-    1. [Діаграми послідовностей](docs/sequence%20diagrams/SequenceDiagrams.md)
+    1. [Діаграми послідовностей](docs/SequenceDiagrams.md)
 3. [ProjectManagementApplication API](#paragraph2)
 
 ## План виконання курсової роботи: <a name="plan"></a>
