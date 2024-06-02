@@ -26,12 +26,13 @@ public class UserService {
         //Optional<User> existingUserByUsername = userRepository.findByUsername(user.getUsername());
         //if (existingUserByUsername.isPresent()) {
         if (userRepository.existsByUsername(user.getUsername())) {
-            throw new RuntimeException("Username is already taken.");
+            throw new RuntimeException("Username is already taken");
         }
 
-        Optional<User> existingUserByEmail = userRepository.findByEmail(user.getEmail());
-        if (existingUserByEmail.isPresent()) {
-            throw new RuntimeException("Email is already taken.");
+        //Optional<User> existingUserByEmail = userRepository.findByEmail(user.getEmail());
+        //if (existingUserByEmail.isPresent()) {
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new RuntimeException("Email is already taken");
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));

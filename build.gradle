@@ -41,9 +41,16 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	// Spring Boot Starter Test
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// Mockito
+	testImplementation 'org.mockito:mockito-core'
+
+	// AssertJ
+	testImplementation 'org.assertj:assertj-core'
 }
 
 tasks.named('test') {

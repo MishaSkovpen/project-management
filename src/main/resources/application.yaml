@@ -4,10 +4,12 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${PMA_DB_HOST}:${PMA_DB_PORT}/${PMA_DB_NAME}
-    username: ${PMA_DB_USERNAME}
-    password: ${PMA_DB_PASSWORD}
-
+    #url: jdbc:postgresql://${PMA_DB_HOST}:${PMA_DB_PORT}/${PMA_DB_NAME}
+    #username: ${PMA_DB_USERNAME}
+    #password: ${PMA_DB_PASSWORD}
+    url: jdbc:postgresql://localhost:32768/pma
+    username: svc_api
+    password: secret
 
   jpa:
     hibernate:
