@@ -41,6 +41,8 @@ public class User {
     @NotBlank
     private String password;
 
+    @Setter
+    @Getter
     private String role;
 
 }
