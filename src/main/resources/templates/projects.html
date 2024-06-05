@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="uk-UA">
+<head>
+    <title>Project List</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #pagination {
+            margin-top: 10px;
+        }
+
+        #pagination button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            text-decoration: none;
+            margin: 4px 2px;
+            border-radius: 5px;
+        }
+
+        #pagination button:hover {
+            background-color: #45a049;
+        }
+
+        #pagination button:disabled {
+            background-color: #aaaaaa;
+            cursor: not-allowed;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            loadProjects(0, 5);
+
+            document.getElementById('prev').addEventListener('click', function() {
+                let page = parseInt(document.getElementById('currentPage').textContent) - 1;
+                loadProjects(page - 1, 5);
+            });
+
+            document.getElementById('next').addEventListener('click', function() {
+                let page = parseInt(document.getElementById('currentPage').textContent) - 1;
+                loadProjects(page + 1, 5);
+            });
+        });
+
+        function loadProjects(page, size) {
+            fetch(`/api/projects/getprojects?page=${page}&size=${size}`)
+                .then(response => response.json())
+                .then(data => {
+                    let projectsTable = document.getElementById('projectsTableBody');
+                    projectsTable.innerHTML = '';
+
+                    data.content.forEach(project => {
+                        let row = `<tr>
+                        <td>${project.id}</td>
+                        <td>${project.name}</td>
+                        <td>${project.description}</td>
+                    </tr>`;
+                        projectsTable.innerHTML += row;
+                    });
+
+                    let currentPage = data.page.number + 1;
+                    let totalPages = data.page.totalPages === 0 ? 0 : data.page.totalPages;
+                    document.getElementById('currentPage').textContent = currentPage;
+                    document.getElementById('totalPages').textContent = totalPages;
+
+                    document.getElementById('prev').disabled = currentPage === 1;
+                    document.getElementById('next').disabled = currentPage >= totalPages;
+                });
+        }
+    </script>
+</head>
+<body>
+<h1>Project List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody id="projectsTableBody">
+    </tbody>
+</table>
+<div id="pagination">
+    <button id="prev" disabled>Previous</button>
+    <span>Page <span id="currentPage">1</span> of <span id="totalPages">1</span></span>
+    <button id="next" disabled>Next</button>
+</div>
+<div>
+    <button onclick="window.location.href='/create-project'">Create Project</button>
+</div>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+</body>
+</html>

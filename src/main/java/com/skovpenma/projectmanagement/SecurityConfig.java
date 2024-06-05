@@ -25,13 +25,14 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())  // Новий спосіб вимкнення CSRF
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/api/users/register").permitAll()
+                        //.requestMatchers("/api/projects/**").permitAll()
                         .requestMatchers("/login", "/register").permitAll()
                         .requestMatchers("/", "/style.css").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/hello", true)
+                        //.defaultSuccessUrl("/hello", true)
                         .permitAll()
                 )
                 .logout((logout) -> {
